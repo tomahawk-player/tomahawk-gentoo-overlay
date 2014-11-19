@@ -1,0 +1,106 @@
+--- /var/tmp/portage/dev-cpp/luceneplusplus-3.0.6/work/LucenePlusPlus-rel_3.0.6/CMakeLists.txt	2014-04-19 22:26:40.000000000 +0400
++++ /home/maks/temp/CMakeLists.txt	2014-08-28 12:49:21.173231804 +0400
+@@ -45,11 +45,15 @@
+   OFF
+ )
+ 
++option(BUILD_TESTS
++  "Build tests"
++  ON
++)
++
+ ####################################
+ # bootstrap
+ ####################################
+ 
+-find_package(Subversion REQUIRED)
+ find_package(Threads REQUIRED)
+ find_package(Boost COMPONENTS
+   date_time
+@@ -113,13 +117,17 @@
+   ${CMAKE_CURRENT_BINARY_DIR}/include
+ )
+ 
+-include(CMakeExternal.txt)
+-enable_testing()
+ 
+ add_subdirectory(src/core)
+ add_subdirectory(src/contrib)
+ add_subdirectory(src/demo)
+-add_subdirectory(src/test)
++
++if(BUILD_TESTS)
++    add_subdirectory(src/test)
++
++    include(CMakeExternal.txt)
++    enable_testing()
++endif()
+ 
+ #################################
+ # install pkg-config file
+--- /var/tmp/portage/dev-cpp/luceneplusplus-3.0.6/work/LucenePlusPlus-rel_3.0.6/CMakeExternal.txt	2014-04-19 22:26:40.000000000 +0400
++++ /home/maks/temp/CMakeExternal.txt	2014-08-28 12:47:58.888232514 +0400
+@@ -1,28 +1,38 @@
+-# Enable ExternalProject CMake module
+-include(ExternalProject)
++option(USE_SYSTEM_GTEST
++  "Use GTest from the system"
++  OFF
++)
+ 
+-# main directory for external projects
+-set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/ThirdParty)
++if(USE_SYSTEM_GTEST)
++    find_package(GTest REQUIRED)
++else()
++    find_package(Subversion REQUIRED)
++    # Enable ExternalProject CMake module
++    include(ExternalProject)
+ 
+-# GTest external project
+-ExternalProject_Add(
+-    googletest
+-    SVN_REPOSITORY http://googletest.googlecode.com/svn/tags/release-1.7.0/
+-    TIMEOUT 10
+-    CMAKE_ARGS -DCMAKE_C_FLAGS:STRING=${CMAKE_C_FLAGS}
+-               -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS}
+-               -Dgtest_force_shared_crt=ON
+-   # Disable update
+-    UPDATE_COMMAND ""
+-    # Disable install step
+-    INSTALL_COMMAND ""
+-    # Wrap download, configure and build steps in a script to log output
+-    LOG_DOWNLOAD ON
+-    LOG_CONFIGURE ON
+-    LOG_BUILD ON)
++    # main directory for external projects
++    set_directory_properties(PROPERTIES EP_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/ThirdParty)
+ 
+-ExternalProject_Get_Property(googletest source_dir)
+-set(GTEST_DIR ${source_dir})
+-set(GTEST_INCLUDE_DIR ${source_dir}/include)
+-ExternalProject_Get_Property(googletest binary_dir)
+-set(GTEST_LIB_DIR ${binary_dir})
++    # GTest external project
++    ExternalProject_Add(
++        googletest
++        SVN_REPOSITORY http://googletest.googlecode.com/svn/tags/release-1.7.0/
++        TIMEOUT 10
++        CMAKE_ARGS -DCMAKE_C_FLAGS:STRING=${CMAKE_C_FLAGS}
++                   -DCMAKE_CXX_FLAGS:STRING=${CMAKE_CXX_FLAGS}
++                   -Dgtest_force_shared_crt=ON
++       # Disable update
++        UPDATE_COMMAND ""
++        # Disable install step
++        INSTALL_COMMAND ""
++        # Wrap download, configure and build steps in a script to log output
++        LOG_DOWNLOAD ON
++        LOG_CONFIGURE ON
++        LOG_BUILD ON)
++
++    ExternalProject_Get_Property(googletest source_dir)
++    set(GTEST_DIR ${source_dir})
++    set(GTEST_INCLUDE_DIR ${source_dir}/include)
++    ExternalProject_Get_Property(googletest binary_dir)
++    set(GTEST_LIB_DIR ${binary_dir})
++endif()

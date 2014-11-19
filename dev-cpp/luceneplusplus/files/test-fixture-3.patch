@@ -1,0 +1,21 @@
+From e349e74f59d4358dad899cdbc355edd6734b51f1 Mon Sep 17 00:00:00 2001
+From: Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+Date: Wed, 2 Jul 2014 17:25:37 +0200
+Subject: [PATCH] Update LuceneTestFixture.h
+
+---
+ src/test/include/LuceneTestFixture.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/test/include/LuceneTestFixture.h b/src/test/include/LuceneTestFixture.h
+index fd7371a..5613658 100644
+--- a/src/test/include/LuceneTestFixture.h
++++ b/src/test/include/LuceneTestFixture.h
+@@ -13,6 +13,7 @@ class LuceneTestFixture : public testing::Test {
+     /// setup
+     LuceneTestFixture();
+ 
++    void destructorBody();
+     /// teardown
+     virtual ~LuceneTestFixture();
+ };

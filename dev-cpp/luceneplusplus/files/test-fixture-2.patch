@@ -1,0 +1,24 @@
+From 474d308600aecabfa88c27e691fa13e815e4649f Mon Sep 17 00:00:00 2001
+From: Gianfranco Costamagna <costamagnagianfranco@yahoo.it>
+Date: Wed, 2 Jul 2014 17:23:27 +0200
+Subject: [PATCH] Update LuceneTestFixture.cpp
+
+---
+ src/test/util/LuceneTestFixture.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/src/test/util/LuceneTestFixture.cpp b/src/test/util/LuceneTestFixture.cpp
+index e737bdb..71e16cf 100644
+--- a/src/test/util/LuceneTestFixture.cpp
++++ b/src/test/util/LuceneTestFixture.cpp
+@@ -17,6 +17,10 @@ LuceneTestFixture::LuceneTestFixture() {
+ }
+ 
+ LuceneTestFixture::~LuceneTestFixture() {
++    // Moved out to a separate function since GTEST_FAIL cannot be used in destructors
++    destructorBody();
++}
++void LuceneTestFixture::destructorBody() {
+     DateTools::setDateOrder(DateTools::DATEORDER_LOCALE);
+     if (ConcurrentMergeScheduler::anyUnhandledExceptions()) {
+         // Clear the failure so that we don't just keep failing subsequent test cases
