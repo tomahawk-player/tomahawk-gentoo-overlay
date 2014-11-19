@@ -21,7 +21,6 @@ HOMEPAGE="https://github.com/luceneplusplus/LucenePlusPlus"
 
 LICENSE="LGPL-3 Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64"
 IUSE="doc test"
 
 RDEPEND="
@@ -38,7 +37,7 @@ DEPEND="${DEPEND}
 
 src_configure() {
 	local mycmakeargs=(
-		$(cmake-utils_use_enable test)
+		$(cmake-utils_use_build test TESTS)
 		$(cmake-utils_use_enable doc DOCS)
 		-DUSE_SYSTEM_GTEST=ON
 	)
@@ -47,5 +46,5 @@ src_configure() {
 }
 
 src_test() {
-	"${BUILD_DIR}"/src/test/lucenec++-tester --test_dir="${S}"/src/test/testfiles/ || die "tests failed"
+	"${BUILD_DIR}"/src/test/lucene++-tester --test_dir="${S}"/src/test/testfiles/ || die "tests failed"
 }
