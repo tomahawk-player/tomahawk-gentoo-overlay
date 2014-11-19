@@ -14,7 +14,7 @@ SRC_URI="https://github.com/${PN}/${PN}/archive/rel_${PV}.tar.gz -> ${P}.tar.gz"
 
 LICENSE="LGPL-3 Apache-2.0"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="~amd64 ~x86"
 IUSE="doc test"
 
 RDEPEND="
