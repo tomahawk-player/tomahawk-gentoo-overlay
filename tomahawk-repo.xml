@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name><![CDATA[tomahawk]]></name>
+    <description><![CDATA[tomahawk]]></description>
+    <homepage>https://github.com/tomahawk-player/tomahawk-gentoo-overlay</homepage>
+    <owner>
+      <email>uwelk@xhochy.com</email>
+      <name><![CDATA[Uwe L. Korn]]></name>
+    </owner>
+    <source type="git">https://github.com/tomahawk-player/tomahawk-gentoo-overlay.git</source>
+    <feed></feed>
+  </repo>
+</repositories>
