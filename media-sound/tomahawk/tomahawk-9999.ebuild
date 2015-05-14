@@ -39,7 +39,6 @@ DEPEND="
 	>=media-libs/libechonest-2.2.0:=
 	>=media-libs/liblastfm-1.0.1
 	dev-cpp/luceneplusplus
-	media-libs/phonon
 	>=media-libs/taglib-1.8.0
 	>=net-libs/gnutls-3.2
 	jabber? ( net-libs/jreen )
