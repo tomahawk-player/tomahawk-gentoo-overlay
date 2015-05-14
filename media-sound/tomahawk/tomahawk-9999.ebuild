@@ -14,7 +14,11 @@ else
 	GIT_ECLASS="git-r3"
 	EGIT_REPO_URI="git://github.com/tomahawk-player/${PN}.git"
 	KEYWORDS=""
-	EGIT_BRANCH="stable-0.8"
+	if [[ ${PV} == 0.8.9999 ]]; then
+		EGIT_BRANCH="stable-0.8"
+	else
+		EGIT_BRANCH=""
+	fi
 fi
 
 DESCRIPTION="A multi-source social music player"
@@ -50,6 +54,7 @@ DEPEND="
 		dev-qt/qtsql:4[sqlite]
 		dev-qt/qtsvg:4
 		dev-qt/qtwebkit:4
+                dev-qt/qttest:4
 	)
 	qt5? (
 		kde-frameworks/attica:5
@@ -61,6 +66,7 @@ DEPEND="
 		dev-qt/qtsql:5[sqlite]
 		dev-qt/qtwebkit:5
 		dev-qt/qtwidgets:5
+                dev-qt/qttest:5
 	)
 	telepathy? ( net-libs/telepathy-qt )
 "

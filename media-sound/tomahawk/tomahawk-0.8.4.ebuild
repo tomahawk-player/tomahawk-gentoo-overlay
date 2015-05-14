@@ -65,7 +65,7 @@ DEPEND="
 	telepathy? ( net-libs/telepathy-qt )
 "
 RDEPEND="${DEPEND}
-	app-crypt/qca-ossl
+	|| ( >=app-crypt/qca-2.1[openssl] app-crypt/qca-ossl )
 "
 
 DOCS=( AUTHORS ChangeLog README.md )
