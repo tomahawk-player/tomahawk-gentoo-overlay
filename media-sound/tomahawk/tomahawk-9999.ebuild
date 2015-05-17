@@ -70,7 +70,7 @@ DEPEND="
 	)
 	telepathy? ( net-libs/telepathy-qt[qt4?,qt5?] )
 "
-if [[ ${PV} != *9999* ]]; then
+if [[ ${PV} != 9999 ]]; then
 	DEPEND="${DEPEND}
 	media-libs/phonon[qt4?,qt5?]
 	"
