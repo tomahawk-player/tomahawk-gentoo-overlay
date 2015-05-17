@@ -26,22 +26,23 @@ HOMEPAGE="http://tomahawk-player.org/"
 
 LICENSE="GPL-3 BSD"
 SLOT="0"
-IUSE="debug +jabber +hatchet kde qt5 telepathy"
+IUSE="debug +jabber +hatchet kde qt4 qt5 telepathy"
 
-REQUIRED_USE="telepathy? ( kde )"
+REQUIRED_USE="telepathy? ( kde )
+qt4? ( !qt5 )"
 
 DEPEND="
-	app-crypt/qca:2
+	app-crypt/qca:2[qt4?,qt5?]
 	dev-cpp/sparsehash
 	dev-libs/boost
-	dev-libs/quazip
-	dev-libs/qtkeychain
-	>=media-libs/libechonest-2.2.0:=
-	>=media-libs/liblastfm-1.0.1
+	dev-libs/quazip[qt4?,qt5?]
+	dev-libs/qtkeychain[qt4?,qt5?]
+	>=media-libs/libechonest-2.2.0:=[qt4?,qt5?]
+	>=media-libs/liblastfm-1.0.1[qt4?,qt5?]
 	dev-cpp/luceneplusplus
 	>=media-libs/taglib-1.8.0
 	>=net-libs/gnutls-3.2
-	jabber? ( net-libs/jreen )
+	jabber? ( net-libs/jreen[qt4?,qt5?] )
 	hatchet? ( dev-cpp/websocketpp )
 	!qt5? (
 		>=dev-libs/libattica-0.4.0
@@ -53,7 +54,7 @@ DEPEND="
 		dev-qt/qtsql:4[sqlite]
 		dev-qt/qtsvg:4
 		dev-qt/qtwebkit:4
-                dev-qt/qttest:4
+		dev-qt/qttest:4
 	)
 	qt5? (
 		kde-frameworks/attica:5
@@ -65,10 +66,15 @@ DEPEND="
 		dev-qt/qtsql:5[sqlite]
 		dev-qt/qtwebkit:5
 		dev-qt/qtwidgets:5
-                dev-qt/qttest:5
+		dev-qt/qttest:5
 	)
-	telepathy? ( net-libs/telepathy-qt )
+	telepathy? ( net-libs/telepathy-qt[qt4?,qt5?] )
 "
+if [[ ${PV} != *9999* ]]; then
+	DEPEND="${DEPEND}
+	media-libs/phonon[qt4?,qt5?]
+	"
+fi
 RDEPEND="${DEPEND}
         || ( >=app-crypt/qca-2.1[openssl] app-crypt/qca-ossl )
 "
