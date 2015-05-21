@@ -29,7 +29,7 @@ SLOT="0"
 IUSE="debug +jabber +hatchet kde qt4 qt5 telepathy"
 
 REQUIRED_USE="telepathy? ( kde )
-qt4? ( !qt5 )"
+^^ ( qt4 qt5 )"
 
 DEPEND="
 	app-crypt/qca:2[qt4?,qt5?]
